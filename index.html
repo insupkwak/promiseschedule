@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>약속 준비 시간 계산기</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #dfdfdf; /* 흰색 배경색으로 변경 */
+            text-align: center;
+            padding-top: 50px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .title-form {
+            background-color:  #20ff32; /* 민트 색상으로 변경 */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+        form {
+            text-align: left;
+            background-color: #ffe626;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="number"], select {
+            width: calc(95%);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            vertical-align: middle;
+        }
+        .group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .group label {
+            width: 100%;
+        }
+        .group div {
+            display: flex;
+            align-items: center;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #ampm, #hour, #minute {
+            width: 95px; /* 각 요소의 너비를 조정합니다. */
+            margin-right: 8px; /* 요소 간의 오른쪽 여백을 설정합니다. */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-form">
+            <h1>약속 준비 시간 계산기</h1>
+        </div>
+        <form action="/" method="post" onsubmit="return validateForm()">
+            <div class="group">
+                <label for="ampm">약속 시간:</label>
+                <div>
+                    <select id="ampm" name="ampm">
+                        <option value="AM">오전</option>
+                        <option value="PM">오후</option>
+                    </select>
+                    <select id="hour" name="hour">
+                        {% for i in range(1, 13) %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                    <select id="minute" name="minute">
+                        {% for i in range(0, 60) %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="group">
+                <label for="shower_time">씻는 시간 (분):</label>
+                <input type="number" id="shower_time" name="shower_time">
+                <label for="dress_time">옷 입는 시간 (분):</label>
+                <input type="number" id="dress_time" name="dress_time">
+                <label for="makeup_time">화장 시간 (분):</label>
+                <input type="number" id="makeup_time" name="makeup_time">
+                <label for="travel_time">이동 시간 (분):</label>
+                <input type="number" id="travel_time" name="travel_time">
+            </div>
+            <input type="submit" value="계산">
+        </form>
+    </div>
+    <script>
+        function validateForm() {
+            var ampm = document.getElementById("ampm").value;
+            var hour = document.getElementById("hour").value;
+            var minute = document.getElementById("minute").value;
+            var showerTime = document.getElementById("shower_time").value;
+            var dressTime = document.getElementById("dress_time").value;
+            var makeupTime = document.getElementById("makeup_time").value;
+            var travelTime = document.getElementById("travel_time").value;
+
+            if (ampm === "" || hour === "" || minute === "" || showerTime === "" || dressTime === "" || makeupTime === "" || travelTime === "") {
+                alert("모든 입력칸을 채워주세요.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
